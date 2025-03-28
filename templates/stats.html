@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Statystyki Grania</title>
+
+</head>
+<body>
+    <div class="container">
+        <h1>STATYSTYKI GRANIA</h1>
+        <h2>Paweł "STERYDKA" Skoczylas w Rainbow Six Siege</h2>
+
+        <h3>W przeciągu ostatnich 14 dni grał przez:</h3>
+        <p>{{ two_weeks.minutes }} minut</p>
+        <p>czyli</p>
+        <p>{{ two_weeks.days }} dni, {{ two_weeks.hours }} godzin, {{ two_weeks.seconds }} sekund</p>
+        <p>Spędził {{ (two_weeks.weeks / 2) * 100|round(2) }}% tygodnia na graniu</p>
+
+        <h3>Od początku istnienia konta Steam grał przez:</h3>
+        <p>{{ total.hours }} godzin</p>
+        <p>czyli</p>
+        <p>{{ total.days }} dni, {{ total.months }} miesięcy, {{ total.weeks }} tygodni, {{ total.minutes }} minut, {{ total.seconds }} sekund</p>
+
+        <button class="button" onclick="refreshData()">Odśwież dane</button>
+    </div>
+
+    <script>
+        function refreshData() {
+            fetch('/refresh')
+                .then(response => response.json())
+                .then(data => alert(data.message));
+        }
+    </script>
+</body
