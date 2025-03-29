@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Statystyki Grania</title>
-
 </head>
 <body>
     <div class="container">
         <h1>STATYSTYKI GRANIA</h1>
-        <h2>Pawła "STERYDKA" Skoczylasa w Rainbow Six Siege</h2>
+        <h2><p>Pawła "STERYDKA" Skoczylasa</p> 
+            w Rainbow Six Siege</h2>
 
         <h3>W przeciągu ostatnich 14 dni grał przez:</h3>
         <p>{{ two_weeks.minutes }} minut</p>
         <p>czyli</p>
         <p>{{ two_weeks.days }} dni, {{ two_weeks.hours }} godzin, {{ two_weeks.seconds }} sekund</p>
-        <p>Spędził {{ (two_weeks.weeks / 2) * 100|round(2) }}% tygodnia na graniu</p>
+        <p>Spędził <span id="procenttygodnia"></span>% tygodnia na graniu</p>
+        <p>Średnio dziennie grał <span id="sredniodziennie"></span> godzin! </p>
 
         <h3>Od początku istnienia konta Steam grał przez:</h3>
         <p>{{ total.hours }} godzin</p>
@@ -26,6 +27,69 @@
         <button class="button" onclick="refreshData()">Odśwież dane</button>
     </div>
 
+    <div class="facts-section">
+        <h2>Ciekawostki</h2>
+        <div class="fact" id="fact1">
+            Czy wiedziałeś, że Paweł kupił tą grę 13.07.2023 roku, czyli <span id="days_since"></span> dni temu?
+            Oznacza to, że średnio grał <span id="avg_hours"></span> godzin dziennie!
+        </div>
+        
+        <div class="fact" id="fact2">
+            Czy wiedziałeś, że jakby Paweł poszedł do pracy i zatrudnił się na umowę o pracę zamiast ciągłego grania w R6, to zarobiłby <span id="zarobki"></span> zł?
+        </div>
+        <div class="fact" id="fact3">
+            Czy wiedziałeś, że w gdy Paweł grał w Rainbowa, to pracownik maka był w stanie zrobić <span id="cheeseburgery"></span> cheeseburgerów?
+        </div>
+        <div class="fact" id="fact4">
+            <p>Czy wiedziałeś, że w czas całkowitego grania Pawła w R6 Twoje serce przepompowało <span id="krew"></span> litrów krwi? </p>
+            <p>Co ciekawe, to odpowiada <span id="olej"></span> litrom oleju, który jak wiemy płynie w żyłach Sterydka.</p>
+        </div>
+        
+        <script>
+            // Pobranie wartości totalMinutes z Jinja2 i zamiana na liczbę w JS
+            const totalMinutes = JSON.parse('{{ total.minutes | tojson }}');
+        
+            // Data zakupu gry
+            const purchaseDate = new Date("2023-07-13");
+            const today = new Date();
+        
+            // Obliczenie liczby dni od zakupu
+            const daysSincePurchase = Math.floor((today - purchaseDate) / (1000 * 60 * 60 * 24));
+        
+            // Obliczenie średniej liczby godzin granych dziennie
+            const avgHoursPerDay = (totalMinutes / 60 / daysSincePurchase).toFixed(2);
+        
+            // Stawka godzinowa
+            const hourlyWage = 30.50;
+        
+            // Obliczenie zarobków
+            const earnings = (totalMinutes / 60 * hourlyWage).toFixed(2);
+
+            const godzinyz2tygodni = JSON.parse('{{ two_weeks.hours | tojson }}');
+            const sredniagodzin = (godzinyz2tygodni / 14).toFixed(2)
+
+            const procenttygodnia = (((godzinyz2tygodni / 2)/168)*100).toFixed(2);
+
+            // cheeseburgery
+            const cheesebugery = (totalMinutes / 2).toFixed(0)
+
+            const krew = (totalMinutes * 5.5).toFixed(0)
+            const olej = (krew * 1.09).toFixed(0)
+        
+            // Wstawienie wartości do HTML
+            document.getElementById("days_since").textContent = daysSincePurchase;
+            document.getElementById("avg_hours").textContent = avgHoursPerDay;
+            document.getElementById("zarobki").textContent = earnings;
+            document.getElementById("sredniodziennie").textContent = sredniagodzin;
+            document.getElementById("procenttygodnia").textContent = procenttygodnia;
+            document.getElementById("cheeseburgery").textContent = cheesebugery;
+            document.getElementById("krew").textContent = krew;
+            document.getElementById("olej").textContent = olej;
+        </script>
+        
+    
+    
+</body>
     <script>
         function refreshData() {
             fetch('/refresh')
