@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 def get_playtime():
     """Pobiera czas gry w Rainbow Six Siege z Steam API."""
-    url = f"https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key={STEAM_API_KEY}&steamid={STEAM_ID}&include_played_free_games=1"
+    url = f"https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/?key={STEAM_API_KEY}&steamid={STEAM_ID}"
     response = requests.get(url).json()
 
     total_playtime = 0
