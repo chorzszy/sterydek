@@ -1,22 +1,50 @@
+/* Ładujemy czcionkę Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+/* Ogólne ustawienia strony */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #1e1e2e;
-    color: white;
+    font-family: 'Poppins', sans-serif; /* Czcionka Poppins Bold */
+    color: rgb(0, 0, 0);
     text-align: center;
     padding: 20px;
+    margin: 0;
 }
 
+/* Ustawienia kontenera */
 .container {
-    max-width: 500px;
+    max-width: 1200px;
     margin: auto;
 }
 
+/* Nagłówek */
 h1 {
-    color: #ffcc00;
+    color: #000000;
+    font-size: 3rem;
+    margin-bottom: 20px;
 }
 
+h2 {
+    color: #000000;
+    -webkit-text-stroke: white;
+    -webkit-text-stroke-width: 1px;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    background-image: url('/static/zdjecie1.png'); /* Tło całej strony */
+    background-size: contain; /* Dopasowanie tła */
+}
+
+/* Pierwsza sekcja strony (tekstowa) */
+.first-section {
+    background-image: url('/static/zdjecie3.png'); /* Tło dla pierwszej sekcji */
+    background-size: cover;
+    background-position: center;
+    padding: 50px 20px;
+    margin-bottom: 50px;
+}
+
+/* Karty */
 .card {
-    background-color: #29293d;
+    background-color: rgba(41, 41, 61, 0.8); /* Tło karty z delikatnym przezroczystościom */
     padding: 20px;
     margin: 15px 0;
     border-radius: 10px;
@@ -27,6 +55,7 @@ h1 {
     color: #ff9900;
 }
 
+/* Przycisk */
 button {
     background-color: #ff6600;
     color: white;
@@ -39,4 +68,48 @@ button {
 
 button:hover {
     background-color: #ff4500;
+}
+
+/* Obrazki po lewej i prawej stronie */
+.left-right-images {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.left-right-images img {
+    width: 30%;
+    border-radius: 10px;
+}
+
+/* Stylizacja dla obrazków po lewej i prawej stronie */
+.left-right-images img.left-image {
+    margin-left: 20px;
+}
+
+.left-right-images img.right-image {
+    margin-right: 20px;
+}
+
+/* Plansza z ciekawostkami */
+.facts-section {
+    background-color: rgba(198, 198, 198, 0.8);
+    padding: 30px;
+    margin-top: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(191, 191, 191, 0.555);
+}
+
+.facts-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+.fact {
+    background-color: rgb(255, 255, 255);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 1.2rem;
 }
